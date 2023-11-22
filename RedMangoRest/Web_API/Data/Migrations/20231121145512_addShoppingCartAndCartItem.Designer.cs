@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Web_API.Data;
@@ -11,9 +12,11 @@ using Web_API.Data;
 namespace Web_API.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231121145512_addShoppingCartAndCartItem")]
+    partial class addShoppingCartAndCartItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -381,84 +384,6 @@ namespace Web_API.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Web_API.Models.OrderDetails", b =>
-                {
-                    b.Property<int>("OrderDetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderDetailId"));
-
-                    b.Property<string>("ItemName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("MenuItemId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("OrderHeaderId")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("OrderDetailId");
-
-                    b.HasIndex("MenuItemId");
-
-                    b.HasIndex("OrderHeaderId");
-
-                    b.ToTable("OrderDetails");
-                });
-
-            modelBuilder.Entity("Web_API.Models.OrderHeader", b =>
-                {
-                    b.Property<int>("OrderHeaderId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OrderHeaderId"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<double>("OrderTotal")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("PickupEmail")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PickupName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PickupPhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("text");
-
-                    b.Property<string>("StripePaymentIntentID")
-                        .HasColumnType("text");
-
-                    b.Property<int>("TotalItems")
-                        .HasColumnType("integer");
-
-                    b.HasKey("OrderHeaderId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("OrderHeaders");
-                });
-
             modelBuilder.Entity("Web_API.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
@@ -466,6 +391,12 @@ namespace Web_API.Data.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClientSecret")
+                        .HasColumnType("text");
+
+                    b.Property<string>("StripePaymentIntentId")
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
                         .HasColumnType("text");
@@ -541,37 +472,6 @@ namespace Web_API.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("MenuItem");
-                });
-
-            modelBuilder.Entity("Web_API.Models.OrderDetails", b =>
-                {
-                    b.HasOne("Web_API.Models.MenuItem", "MenuItem")
-                        .WithMany()
-                        .HasForeignKey("MenuItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Web_API.Models.OrderHeader", null)
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderHeaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MenuItem");
-                });
-
-            modelBuilder.Entity("Web_API.Models.OrderHeader", b =>
-                {
-                    b.HasOne("Web_API.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Web_API.Models.OrderHeader", b =>
-                {
-                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("Web_API.Models.ShoppingCart", b =>

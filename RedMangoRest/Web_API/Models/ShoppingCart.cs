@@ -10,21 +10,14 @@ namespace Web_API.Models
     {
         public int Id { get; set; }
         public string UserId { get; set; }
-        public string StripePaymentIntentId { get; set; }
-        public string ClientSecret { get; set; }
+
         public ICollection<CartItem> CartItems { get; set; }
 
         [NotMapped] // This property will not be mapped to the database
         public double OrderTotal { get; set; }
-    }
-
-    public class CartItem
-    {
-        public int Id { get; set; }
-        public int MenuItemId { get; set; }
-        [ForeignKey("MenuItemId")]
-        public MenuItem MenuItem { get; set; } = new();
-        public int Quantity { get; set; }
-        public int ShoppingCartId { get; set; }
+        [NotMapped]
+        public string StripePaymentIntentId { get; set; }
+        [NotMapped]
+        public string ClientSecret { get; set; }
     }
 }
