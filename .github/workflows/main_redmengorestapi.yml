@@ -13,7 +13,6 @@ env:
   AZURE_WEBAPP_NAME: redmengorestApi # set this to your application's name
   AZURE_WEBAPP_PACKAGE_PATH: "." # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: "7.x" # set this to the dot net version to use
-  DOTNET_ROOT: "./RedMangoRest/Web_API"
 
 jobs:
   build:
@@ -32,13 +31,13 @@ jobs:
         run: dotnet build RedMangoRest/Web_API --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release --property:PublishDir='${{ env.DOTNET_ROOT }}'
+        run: dotnet publish -c Release -o ${{ env.DOTNET_ROOT }}/myapp'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{ env.DOTNET_ROOT }}
+          path: ${{ env.DOTNET_ROOT }}/myapp
 
   deploy:
     runs-on: ubuntu-latest
