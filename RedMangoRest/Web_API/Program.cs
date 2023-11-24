@@ -104,3 +104,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
+// "ConnectionStrings": {
+//     "DefaultDbConnection": "Server=localhost;Username=postgres;Port=5432;Password=per4869;Database=my_mangorest_db"
+//   }
