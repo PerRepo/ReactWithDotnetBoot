@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/RedMangoRest/Web_API
+          path: ${{env.DOTNET_ROOT}}/Web_API
 
   deploy:
     runs-on: ubuntu-latest
