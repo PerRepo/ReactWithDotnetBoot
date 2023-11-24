@@ -32,13 +32,13 @@ jobs:
         run: dotnet build RedMangoRest/Web_API --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release --property:PublishDir='${{ env.DOTNET_ROOT }}/RedMangoRest/Web_API'
+        run: dotnet publish -c Release --property:PublishDir='${{ env.DOTNET_ROOT }}/RedMangoRest/Web_API/Web_API.csproj'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{ env.DOTNET_ROOT }}/RedMangoRest/Web_API
+          path: ${{ env.DOTNET_ROOT }}/RedMangoRest/Web_API/Web_API.csproj
 
   deploy:
     runs-on: ubuntu-latest
