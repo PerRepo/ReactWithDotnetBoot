@@ -3,6 +3,9 @@
 
 name: Build and deploy ASP.Net Core app to Azure Web App - redmengorestApi
 
+env:
+  DOTNET_ROOT: ${{github.repositoryUrl }}/RedMangoRest/Web_API
+
 on:
   push:
     branches:
