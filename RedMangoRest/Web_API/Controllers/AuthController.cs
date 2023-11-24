@@ -37,7 +37,7 @@ namespace Web_API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDTO model)
         {
-            ApplicationUser userFromDb = _db.ApplicationUsers.FirstOrDefault(u => u.UserName == model.Username);
+            ApplicationUser userFromDb = _db.ApplicationUsers.FirstOrDefault(u => u.UserName == model.UserName);
 
             if (userFromDb != null)
             {
@@ -49,9 +49,9 @@ namespace Web_API.Controllers
 
             ApplicationUser newUser = new()
             {
-                UserName = model.Username,
-                Email = model.Username,
-                NormalizedEmail = model.Username.ToUpper(),
+                UserName = model.UserName,
+                Email = model.UserName,
+                NormalizedEmail = model.UserName.ToUpper(),
                 Name = model.Name,
             };
 
@@ -92,7 +92,7 @@ namespace Web_API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO model)
         {
-            ApplicationUser userFromDb = _db.ApplicationUsers.FirstOrDefault(u => u.UserName.ToLower() == model.Username.ToLower());
+            ApplicationUser userFromDb = _db.ApplicationUsers.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
 
             bool isValid = await _userManager.CheckPasswordAsync(userFromDb, model.Password);
 
@@ -101,7 +101,7 @@ namespace Web_API.Controllers
                 _response.Result = new LoginResponseDTO();
                 _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsSuccess = false;
-                _response.ErrorMessages.Add("Username or password is incorrect");
+                _response.ErrorMessages.Add("UserName or password is incorrect");
                 return BadRequest(_response);
             }
 
@@ -135,7 +135,7 @@ namespace Web_API.Controllers
             {
                 _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsSuccess = false;
-                _response.ErrorMessages.Add("Username or password is incorrect");
+                _response.ErrorMessages.Add("UserName or password is incorrect");
                 _response.Result = loginResponseDTO;
                 return BadRequest(_response);
             }
