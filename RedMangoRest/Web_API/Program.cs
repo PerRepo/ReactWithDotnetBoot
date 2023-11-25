@@ -108,5 +108,8 @@ app.Run();
 
 
 // "ConnectionStrings": {
-//     "DefaultDbConnection": "Server=localhost;Username=postgres;Port=5432;Password=per4869;Database=my_mangorest_db"
-//   }
+//     "DefaultDbConnection": "Server=localhost,1433;user id=sa; password=Tel1234!; Database=RedMengoRest_db; TrustServerCertificate=True"
+//   },
+/*
+client@mail.com - 101
+*/
