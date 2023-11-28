@@ -16,13 +16,13 @@ const menuItemApi = createApi({
     }),
     tagTypes: ["MenuItems"],
     endpoints: (builder) => ({
-        getMenuItem: builder.query<ApiResponse<menuItemModel>, any>({
+        getMenuItem: builder.query<ApiResponse<menuItemModel[]>, any>({
             query: () => ({
                 url: "MenuItem",
             }),
             providesTags: ["MenuItems"]
         }) ,
-        getMenuItemById: builder.query({
+        getMenuItemById: builder.query<ApiResponse<menuItemModel>, any>({
             query: (id) => ({
                 url: `MenuItem/${id}`,
             }),

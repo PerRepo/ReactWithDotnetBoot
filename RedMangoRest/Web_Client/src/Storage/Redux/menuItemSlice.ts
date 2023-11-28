@@ -9,7 +9,7 @@ export const menuItemSlice = createSlice({
     name: "menuItem",
     initialState:initialState,
     reducers: {
-        setMenuItem: (state, action: PayloadAction<ApiResponse<menuItemModel>>) => {
+        setMenuItem: (state, action: PayloadAction<ApiResponse<menuItemModel[]>>) => {
             state.menuItem = action.payload.result; // payload is the data that is passed in the action
         },
     },
