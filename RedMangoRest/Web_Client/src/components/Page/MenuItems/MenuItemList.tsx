@@ -17,7 +17,7 @@ export default function MenuItemList({}: Props) {
 
     useEffect(() => {
         if (!isLoading) {
-            dispatch(setMenuItem(data as ApiResponse<menuItemModel>));
+            dispatch(setMenuItem(data as ApiResponse<menuItemModel[]>));
         }
     }, [isLoading]);
 

@@ -1,24 +1,13 @@
-import { Route, Routes } from "react-router-dom";
-import { Header, Footer } from "../components/layout/index";
-import { Home, MenuItemDetail, NotFound } from "../pages/index";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+import { PrivateRoutes, PublicRoutes } from "../router/router";
 
 function App() {
-    return (
-        <div>
-            <Header />
-            <div className=" pb-5">
-                <Routes>
-                    <Route path="/" element={<Home />}></Route>
-                    <Route
-                        path="/menuItemDetails/:menuItemId"
-                        element={<MenuItemDetail />}
-                    />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-            </div>
-            <Footer />
-        </div>
-    );
+    const router = createBrowserRouter([
+        false ? PrivateRoutes() : {},
+        ...PublicRoutes(),
+    ]);
+    return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -4,93 +4,85 @@ type Props = {};
 
 export default function Login({}: Props) {
     return (
-        <section className="bg-gray-50 dark:bg-gray-900">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                <a
-                    href="#"
-                    className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                    <img
-                        className="w-8 h-8 mr-2"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-                        alt="logo"
-                    />
-                    Flowbite
-                </a>
-                <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                    <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                            Sign in to your account
-                        </h1>
-                        <form className="space-y-4 md:space-y-6" action="#">
-                            <div>
-                                <label
-                                    htmlFor="email"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Your email
-                                </label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    id="email"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="name@company.com"
-                                    required
-                                />
-                            </div>
-                            <div>
-                                <label
-                                    htmlFor="password"
-                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                    Password
-                                </label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    placeholder="••••••••"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    required
-                                />
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-start">
-                                    <div className="flex items-center h-5">
+        <section className="vh-100 bg-custom">
+            <div className="container py-5 h-100">
+                <div className="row d-flex justify-content-center align-items-center h-100">
+                    <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div
+                            className="card bg-dark text-white"
+                            style={{ borderRadius: "1rem" }}>
+                            <div className="card-body p-5 text-center">
+                                <div className="mb-md-5 mt-md-4 pb-5">
+                                    <h2 className="fw-bold mb-2 text-uppercase">
+                                        Login
+                                    </h2>
+                                    <p className="text-white-50 mb-5">
+                                        Please enter your login and password!
+                                    </p>
+
+                                    <div className="form-outline form-white mb-4">
                                         <input
-                                            id="remember"
-                                            aria-describedby="remember"
-                                            type="checkbox"
-                                            className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                                            required
+                                            type="email"
+                                            id="typeEmailX"
+                                            className="form-control form-control-lg"
                                         />
-                                    </div>
-                                    <div className="ml-3 text-sm">
                                         <label
-                                            htmlFor="remember"
-                                            className="text-gray-500 dark:text-gray-300">
-                                            Remember me
+                                            className="form-label"
+                                            htmlFor="typeEmailX">
+                                            Email
                                         </label>
                                     </div>
+
+                                    <div className="form-outline form-white mb-4">
+                                        <input
+                                            type="password"
+                                            id="typePasswordX"
+                                            className="form-control form-control-lg"
+                                        />
+                                        <label
+                                            className="form-label"
+                                            htmlFor="typePasswordX">
+                                            Password
+                                        </label>
+                                    </div>
+
+                                    <p className="small mb-5 pb-lg-2">
+                                        <a className="text-white-50" href="#!">
+                                            Forgot password?
+                                        </a>
+                                    </p>
+
+                                    <button
+                                        className="btn btn-outline-light btn-lg px-5"
+                                        type="submit">
+                                        Login
+                                    </button>
+
+                                    <div className="d-flex justify-content-center text-center mt-4 pt-1">
+                                        <a href="#!" className="text-white">
+                                            <i className="fab fa-facebook-f fa-lg"></i>
+                                        </a>
+                                        <a href="#!" className="text-white">
+                                            <i className="fab fa-twitter fa-lg mx-4 px-2"></i>
+                                        </a>
+                                        <a href="#!" className="text-white">
+                                            <i className="fab fa-google fa-lg"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                                <a
-                                    href="#"
-                                    className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
-                                    Forgot password?
-                                </a>
+
+                                <div>
+                                    <p className="mb-0">
+                                        Don't have an account?{" "}
+                                        <a
+                                            href="#!"
+                                            className="text-white-50 fw-bold">
+                                            Sign Up
+                                        </a>
+                                    </p>
+                                </div>
                             </div>
-                            <button
-                                type="submit"
-                                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                Sign in
-                            </button>
-                            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                Don’t have an account yet?{" "}
-                                <a
-                                    href="#"
-                                    className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                                    Sign up
-                                </a>
-                            </p>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

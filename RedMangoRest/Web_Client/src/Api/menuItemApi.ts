@@ -16,7 +16,7 @@ const menuItemApi = createApi({
     }),
     tagTypes: ["MenuItems"],
     endpoints: (builder) => ({
-        getMenuItem: builder.query<ApiResponse<menuItemModel>, any>({
+        getMenuItem: builder.query<ApiResponse<menuItemModel[]>, any>({
             query: () => ({
                 url: "MenuItem",
             }),
