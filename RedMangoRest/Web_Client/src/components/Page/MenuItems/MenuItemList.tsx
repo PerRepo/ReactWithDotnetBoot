@@ -4,6 +4,7 @@ import { MenuItemCard } from ".";
 import { useGetMenuItemQuery } from "../../../Api/menuItemApi";
 import { useDispatch } from "react-redux";
 import { setMenuItem } from "../../../Storage/Redux/menuItemSlice";
+import { MainLoader } from "../common";
 
 type Props = {};
 
@@ -21,7 +22,7 @@ export default function MenuItemList({}: Props) {
         }
     }, [isLoading]);
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <MainLoader />;
 
     return (
         <div className=" container row">

@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { menuItemModel } from "../../../types";
 import { Link } from "react-router-dom";
+import { useUpdateShoppoingCartMutation } from "../../../Api/shoppingCartApi";
+import { MiniLoader, MyImage } from "../common";
 
 type Props = {
     menuItem: menuItemModel;
 };
 
 export default function MenuItemCard({ menuItem }: Props) {
+    const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
+
+    const [updateShoppingCart] = useUpdateShoppoingCartMutation();
+    const handleAddToCart = async (menuItemId: number) => {
+        setIsAddingToCart(true);
+
+        const response = await updateShoppingCart({
+            userId: "4c85ef83-3967-42e8-9c3c-46ebec8c32f2",
+            menuItemId: menuItemId,
+            updateQuantityBy: 1,
+        });
+
+        console.log(response);
+
+        setIsAddingToCart(false);
+    };
     return (
         <div className="col-md-4 col-12 p-4">
             <div
@@ -15,15 +33,9 @@ export default function MenuItemCard({ menuItem }: Props) {
                 <div className="card-body pt-2">
                     <div className="row col-10 offset-1 p-4">
                         <Link to={`/menuItemDetails/${menuItem.id}`}>
-                            <img
+                            <MyImage
                                 src={menuItem.image}
-                                onError={(current: any) => {
-                                    current.onerror = null;
-                                    current.target.src =
-                                        "https://via.placeholder.com/150";
-                                }}
                                 style={{ borderRadius: "50%" }}
-                                alt="Img"
                                 className="w-100 mt-5 image-box"
                             />
                         </Link>
@@ -44,14 +56,14 @@ export default function MenuItemCard({ menuItem }: Props) {
                         </i>
                     )}
 
-                    {/* {isAddingToCart ? (
+                    {isAddingToCart ? (
                         <div
                             style={{
                                 position: "absolute",
                                 top: "15px",
                                 right: "15px",
                             }}>
-                            <MiniLoader />
+                            <MiniLoader size={80} type="danger" />
                         </div>
                     ) : (
                         <i
@@ -65,10 +77,8 @@ export default function MenuItemCard({ menuItem }: Props) {
                                 outline: "none !important",
                                 cursor: "pointer",
                             }}
-                            onClick={() =>
-                                handleAddToCart(menuItem.id)
-                            }></i>
-                    )} */}
+                            onClick={() => handleAddToCart(menuItem.id)}></i>
+                    )}
 
                     <div className="text-center">
                         <p className="card-title m-0 text-success fs-3">

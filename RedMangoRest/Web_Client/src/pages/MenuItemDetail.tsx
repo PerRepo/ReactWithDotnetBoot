@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetMenuItemByIdQuery } from "../Api/menuItemApi";
+import { useUpdateShoppoingCartMutation } from "../Api/shoppingCartApi";
+import { MainLoader, MiniLoader } from "../components/Page/common";
 
 type Props = {};
 
@@ -14,6 +16,8 @@ export default function MenuItemDetail({}: Props) {
     const { data, isLoading } = useGetMenuItemByIdQuery(menuItemId);
 
     const [quantity, setQuantity] = useState<number>(1);
+    const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
+    const [updateShoppingCart] = useUpdateShoppoingCartMutation();
 
     const handleQuantityChange = (counter: number) => {
         let newQuantity = quantity + counter;
@@ -21,6 +25,20 @@ export default function MenuItemDetail({}: Props) {
             newQuantity = 1;
         }
         setQuantity(newQuantity);
+    };
+
+    const handleAddToCart = async (menuItemId: number) => {
+        setIsAddingToCart(true);
+
+        const response = await updateShoppingCart({
+            userId: "4c85ef83-3967-42e8-9c3c-46ebec8c32f2",
+            menuItemId: menuItemId,
+            updateQuantityBy: quantity,
+        });
+
+        console.log(response);
+
+        setIsAddingToCart(false);
     };
 
     return (
@@ -74,8 +92,16 @@ export default function MenuItemDetail({}: Props) {
                         </span>
                         <div className="row pt-4">
                             <div className="col-5">
-                                <button className="btn btn-success form-control">
-                                    Add to Cart
+                                <button
+                                    className="btn btn-success form-control"
+                                    onClick={() =>
+                                        handleAddToCart(data?.result.id!)
+                                    }>
+                                    {isAddingToCart ? (
+                                        <MiniLoader size={30} />
+                                    ) : (
+                                        <>Add to Cart</>
+                                    )}
                                 </button>
                             </div>
 
@@ -102,7 +128,7 @@ export default function MenuItemDetail({}: Props) {
                     </div>
                 </div>
             ) : (
-                <div>Loading...</div>
+                <MainLoader />
             )}
         </div>
     );

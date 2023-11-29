@@ -6,7 +6,7 @@ const menuItemApi = createApi({
     baseQuery: fetchBaseQuery({
         prepareHeaders: (headers) => {
             const token: string =
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6InBlciIsImlkIjoiNGM4NWVmODMtMzk2Ny00MmU4LTljM2MtNDZlYmVjOGMzMmYyIiwiZW1haWwiOiJwZXJAbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MDExNzA2NzcsImV4cCI6MTcwMTI1NzA3NywiaWF0IjoxNzAxMTcwNjc3fQ.r0A0sPWem7LULyMNLcmUUyM3KGIxFfI6Ysqwh-PW1ZU";
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6InBlciIsImlkIjoiNGM4NWVmODMtMzk2Ny00MmU4LTljM2MtNDZlYmVjOGMzMmYyIiwiZW1haWwiOiJwZXJAbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MDEyNjgxMDAsImV4cCI6MTcwMTM1NDUwMCwiaWF0IjoxNzAxMjY4MTAwfQ.Oa0oK5p7bV8FXIQkYlJDoA7Ar3WhifAgM7_xgr8jo34";
             if (token) {
                 headers.set("authorization", `Bearer ${token}`);
             }

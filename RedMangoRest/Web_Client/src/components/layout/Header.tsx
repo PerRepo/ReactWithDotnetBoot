@@ -1,12 +1,16 @@
-import React from "react";
-import { NavLink } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../assets/Images/mango.png";
+import { cartItemModel } from "../../types";
+import { RootState } from "../../Storage/Redux/store";
+import { useSelector } from "react-redux";
 
 type Props = {};
 
 export default function Header({}: Props) {
     //const navigate = useNavigate();
+    const shoppingCartFromStore: cartItemModel[] = useSelector(
+        (state: RootState) => state.shoppingCartStore.cartItems ?? []
+    );
 
     return (
         <div>
@@ -39,6 +43,19 @@ export default function Header({}: Props) {
                                     aria-current="page"
                                     to="/">
                                     Home
+                                </Link>
+                            </li>
+                            <li className="nav-item bg-dark-subtle rounded-5">
+                                <Link
+                                    className="nav-link"
+                                    aria-current="page"
+                                    to="/shoppingCart">
+                                    <i className="bi bi-cart me-1 text-black"></i>
+                                    <span className=" text-lg-center text-black">
+                                        {shoppingCartFromStore.length > 0
+                                            ? shoppingCartFromStore.length
+                                            : ""}
+                                    </span>
                                 </Link>
                             </li>
                             {/* {userData.role == SD_Roles.ADMIN ? (
