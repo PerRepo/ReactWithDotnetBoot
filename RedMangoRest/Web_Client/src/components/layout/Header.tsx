@@ -66,9 +66,8 @@ export default function Header({}: Props) {
                                     to="/shoppingCart">
                                     <i className="bi bi-cart me-1 text-black"></i>
                                     <span className=" text-lg-center text-black">
-                                        {shoppingCartFromStore.length > 0
-                                            ? shoppingCartFromStore.length
-                                            : ""}
+                                        {userData.id &&
+                                            `${shoppingCartFromStore.length}`}
                                     </span>
                                 </Link>
                             </li>

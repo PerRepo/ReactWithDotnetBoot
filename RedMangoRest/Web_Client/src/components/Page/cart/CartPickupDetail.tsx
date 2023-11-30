@@ -12,9 +12,11 @@ export default function CartPickupDetail({}: Props) {
         (state: RootState) => state.shoppingCartStore.cartItems ?? []
     );
 
+    const userCurData = useSelector((state: RootState) => state.userAuthStore);
+
     const initailUserData = {
-        name: "",
-        email: "",
+        name: userCurData.fullName ?? "",
+        email: userCurData.email ?? "",
         phoneNumber: "",
     };
 

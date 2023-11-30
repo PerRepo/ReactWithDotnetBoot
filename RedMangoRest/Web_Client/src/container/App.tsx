@@ -8,7 +8,7 @@ import {
     Register,
     ShoppinCart,
 } from "../pages/index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetShoppingCartQuery } from "../Api/shoppingCartApi";
 import { useEffect } from "react";
 import { setShoppingCart } from "../Storage/Redux/shoppingCartSlice";
@@ -17,28 +17,24 @@ import { setLoggedInUser } from "../Storage/Redux/userAuthSlice";
 import { userModel } from "../types";
 import { jwtDecode } from "jwt-decode";
 import { getToken } from "../Utility/Cookies";
+import { RootState } from "../Storage/Redux/store";
 
 function App() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { data, isLoading } = useGetShoppingCartQuery(
-        "4c85ef83-3967-42e8-9c3c-46ebec8c32f2"
-    );
+    const userData = useSelector((state: RootState) => state.userAuthStore);
+    const { data, isLoading } = useGetShoppingCartQuery(userData.id);
 
     useEffect(() => {
-        if (!Cookies.get("usr")) {
-            navigate("/login");
-        } else {
-            const token = getToken("usr")!;
+        const token = getToken("usr")!;
+        if (token) {
             const { fullName, id, email, role }: userModel = jwtDecode(token);
             dispatch(setLoggedInUser({ fullName, id, email, role }));
         }
     }, []);
 
     useEffect(() => {
-        if (!isLoading) {
-            console.log(data!);
-            dispatch(setShoppingCart(data?.result.cartItems!));
+        if (!isLoading && data) {
+            dispatch(setShoppingCart(data.result?.cartItems!));
         }
     }, [data]);
 

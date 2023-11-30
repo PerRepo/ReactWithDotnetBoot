@@ -43,7 +43,7 @@ export default function MenuItemDetail({}: Props) {
 
         setIsAddingToCart(true);
         const response = await updateShoppingCart({
-            userId: "4c85ef83-3967-42e8-9c3c-46ebec8c32f2",
+            userId: userData.id,
             menuItemId: menuItemId,
             updateQuantityBy: quantity,
         }).unwrap();

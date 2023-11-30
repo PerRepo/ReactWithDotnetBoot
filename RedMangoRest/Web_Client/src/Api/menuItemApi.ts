@@ -6,13 +6,6 @@ import { getToken } from "../Utility/Cookies";
 const menuItemApi = createApi({
     reducerPath: "menuItemApi",
     baseQuery: fetchBaseQuery({
-        prepareHeaders: (headers) => {
-            const token: string = getToken("usr")!;
-            if (token) {
-                headers.set("authorization", `Bearer ${token}`);
-            }
-            return headers;
-        },
         baseUrl: "https://redmengorestapi.azurewebsites.net/api/"
     }),
     tagTypes: ["MenuItems"],
