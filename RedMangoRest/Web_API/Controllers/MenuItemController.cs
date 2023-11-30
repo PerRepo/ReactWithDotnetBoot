@@ -18,7 +18,6 @@ namespace Web_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class MenuItemController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
@@ -63,6 +62,7 @@ namespace Web_API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<ActionResult<ApiResponse>> CreateMenuItem([FromForm] MenuItemCreateDTO menuItemDto)
         {
             try
@@ -112,6 +112,7 @@ namespace Web_API.Controllers
 
         [HttpPut]
         [Route("[action]/{id:int}")]
+        [Authorize(Roles = SD.Role_Admin)]
         public async Task<ActionResult<ApiResponse>> UpdateMenuItem(int id, [FromForm] MenuItemUpdateDTO menuItemDto)
         {
             try
