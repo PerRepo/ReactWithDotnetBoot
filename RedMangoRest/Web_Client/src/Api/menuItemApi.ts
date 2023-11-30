@@ -1,12 +1,13 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 import { ApiResponse, menuItemModel } from "../types";
+import { getToken } from "../Utility/Cookies";
+
 
 const menuItemApi = createApi({
     reducerPath: "menuItemApi",
     baseQuery: fetchBaseQuery({
         prepareHeaders: (headers) => {
-            const token: string =
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6InBlciIsImlkIjoiNGM4NWVmODMtMzk2Ny00MmU4LTljM2MtNDZlYmVjOGMzMmYyIiwiZW1haWwiOiJwZXJAbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJuYmYiOjE3MDEyNjgxMDAsImV4cCI6MTcwMTM1NDUwMCwiaWF0IjoxNzAxMjY4MTAwfQ.Oa0oK5p7bV8FXIQkYlJDoA7Ar3WhifAgM7_xgr8jo34";
+            const token: string = getToken("usr")!;
             if (token) {
                 headers.set("authorization", `Bearer ${token}`);
             }

@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
-import { ApiResponse, cartItemModel, menuItemModel, shoppingCartModel } from "../types";
+import { ApiResponse, cartItemModel, shoppingCartModel } from "../types";
 
 // userId = 4c85ef83-3967-42e8-9c3c-46ebec8c32f2
 
@@ -33,8 +33,8 @@ const shoppingCartApi = createApi({
             }),
             providesTags: ["ShoppingCarts"]
         }),
-        updateShoppoingCart: builder.mutation({
-            query: ({userId, menuItemId, updateQuantityBy}:ShoppingCartParams) => ({
+        updateShoppoingCart: builder.mutation<ApiResponse<cartItemModel[]>, ShoppingCartParams>({
+            query: ({userId, menuItemId, updateQuantityBy}) => ({
                 url: `ShoppingCart`,
                 method: "POST",
                 params: {

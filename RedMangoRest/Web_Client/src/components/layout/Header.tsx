@@ -1,16 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/Images/mango.png";
 import { cartItemModel } from "../../types";
 import { RootState } from "../../Storage/Redux/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
+import {
+    setLoggedInUser,
+    initialState,
+} from "../../Storage/Redux/userAuthSlice";
 
 type Props = {};
 
 export default function Header({}: Props) {
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     const shoppingCartFromStore: cartItemModel[] = useSelector(
         (state: RootState) => state.shoppingCartStore.cartItems ?? []
     );
+
+    const dispatch = useDispatch();
+    const userData = useSelector((state: RootState) => state.userAuthStore);
+
+    function handleLogout(): void {
+        Cookies.remove("usr");
+        dispatch(setLoggedInUser({ ...initialState }));
+        navigate("/login", { replace: true });
+    }
 
     return (
         <div>
@@ -169,6 +183,61 @@ export default function Header({}: Props) {
                   </>
                 )}
               </div> */}
+                            <div
+                                className="d-flex"
+                                style={{ marginLeft: "auto" }}>
+                                {userData.id && (
+                                    <>
+                                        <li className="nav-item">
+                                            <button
+                                                className="nav-link active"
+                                                style={{
+                                                    cursor: "pointer",
+                                                    background: "transparent",
+                                                    border: 0,
+                                                }}>
+                                                Welcome, {userData.fullName}
+                                            </button>
+                                        </li>
+                                        <li className="nav-item">
+                                            <button
+                                                className="btn btn-success btn-outlined rounded-pill text-white mx-2"
+                                                style={{
+                                                    border: "none",
+                                                    height: "40px",
+                                                    width: "100px",
+                                                }}
+                                                onClick={handleLogout}>
+                                                Logout
+                                            </button>
+                                        </li>
+                                    </>
+                                )}
+
+                                {!userData.id && (
+                                    <>
+                                        <li className="nav-item text-white">
+                                            <Link
+                                                className="nav-link"
+                                                to="/register">
+                                                Register
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item text-white">
+                                            <Link
+                                                className="btn btn-success btn-outlined rounded-pill text-white mx-2"
+                                                style={{
+                                                    border: "none",
+                                                    height: "40px",
+                                                    width: "100px",
+                                                }}
+                                                to="/login">
+                                                Login
+                                            </Link>
+                                        </li>
+                                    </>
+                                )}
+                            </div>
                         </ul>
                     </div>
                 </div>

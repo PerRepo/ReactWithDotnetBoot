@@ -1,6 +1,8 @@
 import menuItemModel from "./menuItemModel";
 import cartItemModel from "./cartItemModel";
 import shoppingCartModel from "./shoppingCartModel";
+import userModel from "./userModel";
+import newApiResponse from "./new-api-response";
 
 interface ApiResponse<T> {
     statusCode: number;
@@ -9,4 +11,4 @@ interface ApiResponse<T> {
     result: T;
 }
 
-export type { menuItemModel, ApiResponse, cartItemModel, shoppingCartModel };
+export type { menuItemModel, ApiResponse, cartItemModel, shoppingCartModel, userModel, newApiResponse };
