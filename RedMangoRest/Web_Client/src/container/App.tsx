@@ -5,6 +5,7 @@ import {
     Login,
     MenuItemDetail,
     NotFound,
+    Payment,
     Register,
     ShoppinCart,
 } from "../pages/index";
@@ -51,6 +52,7 @@ function App() {
                     <Route path="/shoppingCart" element={<ShoppinCart />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/payment" element={<Payment />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>

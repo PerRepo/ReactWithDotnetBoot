@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { cartItemModel } from "../../../types";
+import { cartItemModel, newApiResponse } from "../../../types";
 import { RootState } from "../../../Storage/Redux/store";
 import { useSelector } from "react-redux";
 import { inputHelper } from "../../../Helper";
 import { MiniLoader } from "../common";
+import { useInitialPaymentMutation } from "../../../Api/paymentApi";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
@@ -12,16 +14,19 @@ export default function CartPickupDetail({}: Props) {
         (state: RootState) => state.shoppingCartStore.cartItems ?? []
     );
 
-    const userCurData = useSelector((state: RootState) => state.userAuthStore);
+    const userData = useSelector((state: RootState) => state.userAuthStore);
+    const navigate = useNavigate();
 
     const initailUserData = {
-        name: userCurData.fullName ?? "",
-        email: userCurData.email ?? "",
+        name: userData.fullName ?? "",
+        email: userData.email ?? "",
         phoneNumber: "",
     };
 
-    const [userData, setUserData] = useState(initailUserData);
+    const [userInput, setUserInput] = useState(initailUserData);
     const [loading, setLoading] = useState(false);
+
+    const [initiatePayment] = useInitialPaymentMutation();
 
     let grandTotal = 0;
     let totalItems = 0;
@@ -33,16 +38,20 @@ export default function CartPickupDetail({}: Props) {
     });
 
     const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const tempData = inputHelper(e, userData);
-        setUserData(tempData);
+        const tempData = inputHelper(e, userInput);
+        setUserInput(tempData);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 1000);
+
+        const res = await initiatePayment(userData.id).unwrap();
+        //const orderSummary = { grandTotal, totalItems };
+        console.log(res?.result);
+        navigate("/payment", {
+            state: { apiResult: res?.result, userInput },
+        });
     };
 
     return (
@@ -61,7 +70,7 @@ export default function CartPickupDetail({}: Props) {
                         className="form-control"
                         placeholder="name..."
                         name="name"
-                        value={userData.name}
+                        value={userInput.name}
                         onChange={handleUserInput}
                         required
                     />
@@ -72,7 +81,7 @@ export default function CartPickupDetail({}: Props) {
                         type="email"
                         className="form-control"
                         placeholder="email..."
-                        value={userData.email}
+                        value={userInput.email}
                         onChange={handleUserInput}
                         name="email"
                         required
@@ -86,7 +95,7 @@ export default function CartPickupDetail({}: Props) {
                         className="form-control"
                         placeholder="phone number..."
                         name="phoneNumber"
-                        value={userData.phoneNumber}
+                        value={userInput.phoneNumber}
                         onChange={handleUserInput}
                         required
                     />

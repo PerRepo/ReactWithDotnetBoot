@@ -11,4 +11,19 @@ interface ApiResponse<T> {
     result: T;
 }
 
-export type { menuItemModel, ApiResponse, cartItemModel, shoppingCartModel, userModel, newApiResponse };
+interface OrderSummary  {
+    id: number
+    cartItems: Array<shoppingCartModel>
+    orderTotal: number
+}
+
+interface OrderSummaryProps {
+    data : OrderSummary
+    userInput : {
+        name: string;
+        email: string;
+        phoneNumber: string;
+    }
+}
+
+export type { menuItemModel, ApiResponse, cartItemModel, shoppingCartModel, userModel, newApiResponse, OrderSummaryProps };
